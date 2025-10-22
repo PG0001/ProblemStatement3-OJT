@@ -10,7 +10,7 @@ namespace ProjectManagementLibrary.Interfaces
     public interface IEmployeeRepository
     {
         Task<Employee?> GetByEmailAsync(string email);
-        Task<Employee?> GetByIdAsync(string id);
+        Task<Employee?> GetByIdAsync(int id);
         Task AddAsync(Employee employee);
         Task<IEnumerable<Employee>> GetAllAsync();
     }

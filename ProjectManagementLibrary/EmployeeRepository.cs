@@ -18,7 +18,7 @@ namespace ProjectManagementLibrary
             return await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
         }
 
-        public async Task<Employee?> GetByIdAsync(string id)
+        public async Task<Employee?> GetByIdAsync(int id)
         {
             return await _context.Employees.FindAsync(id);
         }
