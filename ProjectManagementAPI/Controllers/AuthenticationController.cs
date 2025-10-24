@@ -37,6 +37,13 @@ namespace ProjectManagementAPI.Controllers
             var token = GenerateJwtToken(user);
             return Ok(new { token });
         }
+        [Authorize(Roles = "Admin")]
+        [HttpGet("employees")]
+        public async Task<IActionResult> GetEmployees()
+        {
+            var employees = await _employeeRepository.GetAllAsync();
+            return Ok(employees);
+        }
 
 
         [Authorize(Roles = "Admin")]

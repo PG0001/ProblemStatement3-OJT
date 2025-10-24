@@ -1,0 +1,20 @@
+<!-- comment-create.component.html -->
+<div class="comment-create">
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <textarea formControlName="content" class="form-control" placeholder="Write a comment..."></textarea>
+      <div *ngIf="f['content'].touched && f['content'].invalid" class="text-danger">
+
+        Comment is required (min 3 characters)
+      </div>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Adding...' : 'Add Comment' }}
+    </button>
+
+    <div *ngIf="errorMessage" class="text-danger mt-2">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

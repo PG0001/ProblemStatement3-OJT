@@ -1,0 +1,13 @@
+/* nav-bar.component.css */
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.navbar-text {
+  font-weight: 500;
+}
+
+.nav-link.active {
+  font-weight: bold;
+}

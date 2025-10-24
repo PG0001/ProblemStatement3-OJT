@@ -1,0 +1,19 @@
+<!-- dashboard-summary.component.html -->
+<div class="dashboard-summary" *ngIf="!isLoading && summary">
+ 
+  <div class="summary-card">
+    <h5>Total Tasks</h5>
+    <p>{{ summary.totalTasks }}</p>
+  </div>
+  <div class="summary-card">
+    <h5>Completed Tasks</h5>
+    <p>{{ summary.completedTasks }}</p>
+  </div>
+  <div class="summary-card">
+    <h5>Pending Tasks</h5>
+    <p>{{ summary.pendingTasks }}</p>
+  </div>
+</div>
+
+<div *ngIf="isLoading">Loading summary...</div>
+<div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>

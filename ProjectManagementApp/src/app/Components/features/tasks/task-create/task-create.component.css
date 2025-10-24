@@ -1,0 +1,12 @@
+/* task-create.component.css */
+.task-create {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #fff;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}

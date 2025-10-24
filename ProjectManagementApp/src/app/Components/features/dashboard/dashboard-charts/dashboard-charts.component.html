@@ -1,0 +1,10 @@
+<div *ngIf="isLoading">Loading chart...</div>
+<div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+<div *ngIf="!isLoading && !errorMessage">
+  <canvas baseChart
+          [data]="chartData"
+          [type]="'doughnut'"
+          [options]="chartOptions">
+  </canvas>
+</div>

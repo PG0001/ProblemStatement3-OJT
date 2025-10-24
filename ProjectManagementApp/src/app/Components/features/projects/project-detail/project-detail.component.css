@@ -1,0 +1,13 @@
+/* project-detail.component.css */
+.project-detail {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+}
+
+hr {
+  margin: 20px 0;
+}

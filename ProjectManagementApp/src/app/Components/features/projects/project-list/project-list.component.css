@@ -1,0 +1,9 @@
+/* project-list.component.css */
+.project-list {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+table {
+  margin-top: 10px;
+}

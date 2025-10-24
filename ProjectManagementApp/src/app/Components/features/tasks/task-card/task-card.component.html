@@ -1,0 +1,13 @@
+<!-- task-card.component.html -->
+<div class="task-card">
+  <strong>{{ task.title }}</strong>
+  <p>{{ task.description }}</p>
+  <small>Assignee: {{ task.assigneeName || 'Unassigned' }}</small>
+  <br />
+  <small>Due: {{ task.dueDate | date:'shortDate' }}</small>
+
+  <div class="task-actions mt-2" *ngIf="showActions">
+    <button *ngIf="columns.indexOf(task.status) > 0" class="btn btn-sm btn-secondary me-1" (click)="moveLeft()">←</button>
+    <button *ngIf="columns.indexOf(task.status) < columns.length - 1" class="btn btn-sm btn-secondary" (click)="moveRight()">→</button>
+  </div>
+</div>

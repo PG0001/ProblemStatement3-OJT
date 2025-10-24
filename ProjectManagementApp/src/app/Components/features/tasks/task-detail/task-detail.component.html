@@ -1,0 +1,17 @@
+<!-- task-detail.component.html -->
+<div class="task-detail" *ngIf="!isLoading && task">
+  <h3>{{ task.title }}</h3>
+  <p><strong>Description:</strong> {{ task.description }}</p>
+  <p><strong>Status:</strong> {{ task.status }}</p>
+  <p><strong>Assignee:</strong> {{ task.assigneeName || 'Unassigned' }}</p>
+  <p><strong>Due Date:</strong> {{ task.dueDate | date:'shortDate' }}</p>
+  <p><strong>Created By:</strong> {{ task.createdDate }}</p>
+
+  <hr />
+
+  <!-- Optional: show comments if you want -->
+  <!-- <app-comment-list [taskId]="task.taskId"></app-comment-list> -->
+</div>
+
+<div *ngIf="isLoading">Loading task details...</div>
+<div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>

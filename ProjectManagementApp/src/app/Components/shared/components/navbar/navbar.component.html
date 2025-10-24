@@ -1,0 +1,40 @@
+<!-- nav-bar.component.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">ProjectManager</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/projects">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/tasks">Tasks</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && Role === 'Admin'">
+          <a class="nav-link" routerLink="/admin/employees">Employees</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto" *ngIf="isLoggedIn">
+        <li class="nav-item">
+          <span class="navbar-text me-3">Hello, {{ employeeName }}</span>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto" *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/auth/login">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

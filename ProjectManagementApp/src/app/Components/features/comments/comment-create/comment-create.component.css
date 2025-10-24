@@ -1,0 +1,11 @@
+/* comment-create.component.css */
+.comment-create {
+  margin-top: 10px;
+}
+
+  .comment-create textarea {
+    width: 100%;
+    min-height: 60px;
+    margin-bottom: 8px;
+    resize: vertical;
+  }

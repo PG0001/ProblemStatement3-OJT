@@ -1,0 +1,16 @@
+<!-- project-detail.component.html -->
+<div class="project-detail" *ngIf="!isLoading && project">
+  <h2>{{ project.name }}</h2>
+  <p><strong>Description:</strong> {{ project.description }}</p>
+  <p><strong>Manager ID:</strong> {{ project.managerId }}</p>
+  <p><strong>Start Date:</strong> {{ project.startDate | date }}</p>
+  <p><strong>End Date:</strong> {{ project.endDate | date }}</p>
+
+  <hr />
+
+  <!-- Kanban Board -->
+  <app-kanban-board [projectId]="project.projectId"></app-kanban-board>
+</div>
+
+<div *ngIf="isLoading">Loading project details...</div>
+<div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>

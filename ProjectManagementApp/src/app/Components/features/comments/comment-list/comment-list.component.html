@@ -1,0 +1,19 @@
+<!-- comment-list.component.html -->
+<div class="comment-list">
+  <h5>Comments</h5>
+
+  <div *ngIf="isLoading">Loading comments...</div>
+  <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && comments.length === 0">
+    No comments yet.
+  </div>
+
+  <ul class="list-group" *ngIf="comments.length > 0">
+    <li class="list-group-item" *ngFor="let comment of comments">
+      <strong>{{ comment.employeeName || 'Anonymous' }}</strong>
+      <span class="text-muted float-end">{{ comment.createdDate | date:'short' }}</span>
+      <p>{{ comment.content }}</p>
+    </li>
+  </ul>
+</div>

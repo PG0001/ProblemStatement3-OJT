@@ -1,0 +1,13 @@
+/* register.component.css */
+.register-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}

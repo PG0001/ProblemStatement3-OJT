@@ -1,0 +1,13 @@
+/* employee-create.component.css */
+.employee-create-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}

@@ -1,0 +1,9 @@
+/* employee-list.component.css */
+.employee-list {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}

@@ -1,0 +1,40 @@
+<!-- task-list.component.html -->
+<div class="task-list">
+  <h3>Tasks</h3>
+
+  <!-- Filters -->
+  <div class="mb-3">
+    <input type="text" [(ngModel)]="searchStatus" placeholder="Filter by status" class="form-control" />
+    <button class="btn btn-primary mt-2" (click)="filterTasks()">Filter</button>
+  </div>
+
+  <div *ngIf="isLoading">Loading tasks...</div>
+  <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+  <table *ngIf="!isLoading && tasks.length > 0" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Assignee</th>
+        <th>Due Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.title }}</td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.assigneeName || 'Unassigned' }}</td>
+        <td>{{ task.dueDate | date:'shortDate' }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="viewTask(task.taskId)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!isLoading && tasks.length === 0">
+    No tasks found for this project.
+  </div>
+</div>

@@ -1,0 +1,9 @@
+/* comment-list.component.css */
+.comment-list {
+  margin-top: 10px;
+}
+
+.list-group-item {
+  margin-bottom: 5px;
+  padding: 10px;
+}

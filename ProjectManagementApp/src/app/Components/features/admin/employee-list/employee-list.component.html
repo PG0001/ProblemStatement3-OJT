@@ -1,0 +1,33 @@
+<!-- employee-list.component.html -->
+<div class="employee-list">
+  <h2>Employees</h2>
+
+  <button class="btn btn-primary mb-3" (click)="createEmployee()">Add Employee</button>
+
+  <div *ngIf="isLoading">Loading...</div>
+  <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+  <table class="table table-bordered" *ngIf="!isLoading && employees.length">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.role }}</td>
+        <td>
+          <button class="btn btn-sm btn-info me-2" (click)="editEmployee(emp.employeeId)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteEmployee(emp.employeeId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!isLoading && employees.length === 0">No employees found.</div>
+</div>
