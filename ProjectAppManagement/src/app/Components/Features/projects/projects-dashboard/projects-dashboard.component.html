@@ -16,7 +16,7 @@
         </div>
 
         <div class="project-header-actions">
-          <button class="btn-primary" (click)="openAddForm()">+ Add Project</button>
+          <button class="btn-primary"  *ngIf="userRole === 'Admin' || userRole === 'Manager'" (click)="openAddForm()">+ Add Project</button>
         </div>
       </div>
 

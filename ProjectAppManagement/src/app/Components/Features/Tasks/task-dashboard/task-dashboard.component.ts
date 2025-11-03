@@ -95,38 +95,57 @@ export class TaskDashboardComponent implements OnInit {
     if (event.previousContainer === event.container) {
       // Moving within the same column
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      // Moving to another column
-      const task = event.previousContainer.data[event.previousIndex];
-      const previousStatus = task.status;
-
-      // Update locally first
-      task.status = newStatus;
-
-      // Move task visually right away (optimistic update)
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-
-      // ✅ Send the full updated task to backend
-      this.taskService.updateTask(task.taskId, task).subscribe({
-        next: () => {
-          console.log(`✅ Task ${task.taskId} moved to ${newStatus}`);
-          // Refresh from backend after a short delay (for sync)
-          setTimeout(() => this.loadTasks(), 300);
-          this.refreshKey++; 
-        },
-        error: (err) => {
-          console.error('❌ Failed to update task:', err);
-          // Roll back to old state if update fails
-          task.status = previousStatus;
-          this.loadTasks();
-        }
-      });
+      return;
     }
+
+    const task = event.previousContainer.data[event.previousIndex];
+    const previousStatus = task.status;
+
+    // ✅ Define allowed transitions (including Review → In Progress)
+    const allowedTransitions: Record<Task['status'], Task['status'][]> = {
+      'To Do': ['In Progress'],
+      'In Progress': ['Review'],
+      'Review': ['Done', 'In Progress'],
+      'Done': [] // no next transitions
+    };
+
+    const isValidTransition = allowedTransitions[previousStatus]?.includes(newStatus);
+
+    if (!isValidTransition) {
+      console.warn(`🚫 Invalid transition: ${previousStatus} → ${newStatus}`);
+      // Revert the item visually — do not move or call backend
+      event.previousContainer.element.nativeElement.classList.add('shake');
+      setTimeout(() => {
+        event.previousContainer.element.nativeElement.classList.remove('shake');
+      }, 300);
+      return;
+    }
+
+    // ✅ Proceed with valid transition
+    task.status = newStatus;
+
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    this.taskService.updateTask(task.taskId, task).subscribe({
+      next: () => {
+        console.log(`✅ Task ${task.taskId} moved to ${newStatus}`);
+        setTimeout(() => this.loadTasks(), 300);
+        this.refreshKey++;
+      },
+      error: (err) => {
+        console.error('❌ Failed to update task:', err);
+        // Roll back if update fails
+        task.status = previousStatus;
+        this.loadTasks();
+      }
+    });
   }
+
+
 
 }

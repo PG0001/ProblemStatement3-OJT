@@ -1,4 +1,4 @@
-﻿select * From Employees;
+﻿	
 select * From Comments;
 select * From Projects;
 select * From TaskItems;

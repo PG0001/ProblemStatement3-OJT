@@ -55,7 +55,7 @@ namespace ProjectManagementAPI.Controllers
         }
 
         [HttpPut("tasks/{taskId}")]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public async Task<IActionResult> UpdateTask(int taskId, [FromBody] TaskCreateDto dto)
         {
             try
