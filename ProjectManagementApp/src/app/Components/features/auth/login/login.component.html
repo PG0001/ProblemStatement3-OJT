@@ -1,22 +1,31 @@
-<!-- login.component.html -->
-<div class="login-form">
-  <h2>Login</h2>
+<div class="login-wrapper d-flex align-items-center justify-content-center vh-100 bg-light">
+  <div class="card shadow-lg p-4 rounded-4" style="width: 400px;">
+    <h3 class="text-center mb-4 text-primary fw-bold">Welcome</h3>
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" class="form-control" />
-      <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger">
-        Valid email is required
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input type="email"
+               id="email"
+               formControlName="email"
+               class="form-control form-control-lg rounded-3"
+               [class.is-invalid]="f['email'].touched && f['email'].invalid"
+               placeholder="Enter your registered email" />
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="invalid-feedback">
+          Please enter a valid email address.
+        </div>
       </div>
-    </div>
 
-    <button class="btn btn-primary" [disabled]="isSubmitting">
-      {{ isSubmitting ? 'Logging in...' : 'Login' }}
-    </button>
+      <button type="submit" class="btn btn-primary w-100 py-2 rounded-3" [disabled]="isSubmitting">
+        <span *ngIf="!isSubmitting">Login</span>
+        <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
+      </button>
+    </form>
 
-    <div *ngIf="errorMessage" class="text-danger mt-2">
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3 p-2 text-center">
       {{ errorMessage }}
     </div>
-  </form>
+
+  
+  </div>
 </div>

@@ -1,7 +1,50 @@
-<div class="app-container d-flex">
-  <app-sidebar></app-sidebar>
+<div class="app-wrapper" *ngIf="isLoggedIn; else authScreen">
 
-  <main class="main-content flex-grow-1 p-3">
-    <router-outlet></router-outlet>
-  </main>
+  <!-- 🔹 Navbar (fixed top) -->
+  <app-nav-bar></app-nav-bar>
+
+  <!-- 🔹 Main layout -->
+  <div class="app-body d-flex">
+    <!-- Sidebar (fixed left) -->
+    <app-sidebar class="sidebar"></app-sidebar>
+
+    <!-- Main content area -->
+    <main class="main-content flex-grow-1">
+      <div class="content-container p-4">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
 </div>
+
+<!-- 🔸 Show login/register when not logged in -->
+<ng-template #authScreen>
+  <router-outlet></router-outlet>
+</ng-template>
+
+
+<!--<ng-template #authScreen>
+  <router-outlet></router-outlet>-->
+<!-- Login or Register shows here -->
+<!--</ng-template>-->
+<!--<app-employee-create></app-employee-create>
+  <app-employee-list></app-employee-list>
+<app-login></app-login>
+<app-register></app-register>
+<app-comment-create></app-comment-create>
+<app-comment-list></app-comment-list>
+<app-dashboard-charts></app-dashboard-charts>
+<app-dashboard-summary></app-dashboard-summary>
+<app-kanban-board></app-kanban-board>
+<app-project-create></app-project-create>
+<app-project-detail></app-project-detail>
+<app-project-list></app-project-list>
+<app-task-card></app-task-card>
+<app-task-create></app-task-create>
+<app-task-detail></app-task-detail>
+<app-task-list></app-task-list>
+<app-confirmation-dialog></app-confirmation-dialog>-->
+<!--<app-loader></app-loader>-->
+<!--<app-nav-bar></app-nav-bar>
+<app-sidebar></app-sidebar>
+<app-toast-notification></app-toast-notification>-->

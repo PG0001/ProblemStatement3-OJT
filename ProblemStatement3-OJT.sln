@@ -7,25 +7,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagementLibrary", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagementAPI", "ProjectManagementAPI\ProjectManagementAPI.csproj", "{BE580672-3AFD-4937-BF56-DCBAAF496075}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ProjectManagementApp", "ProjectManagementApp\", "{86D53155-DAFC-AF8F-D601-85DE8EE8DE9D}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ProjectAppManagement(1)", "ProjectAppManagement\", "{E6C418BD-FE60-CF18-05CB-67A870449800}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_58368"
-		Debug.AspNetCompiler.PhysicalPath = "ProjectManagementApp\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58368\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_52893"
+		Debug.AspNetCompiler.PhysicalPath = "ProjectAppManagement\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52893\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_58368"
-		Release.AspNetCompiler.PhysicalPath = "ProjectManagementApp\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58368\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_52893"
+		Release.AspNetCompiler.PhysicalPath = "ProjectAppManagement\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52893\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "58368"
-		SlnRelativePath = "ProjectManagementApp\"
+		VWDPort = "52893"
+		SlnRelativePath = "ProjectAppManagement\"
 	EndProjectSection
 EndProject
 Global
@@ -42,10 +42,10 @@ Global
 		{BE580672-3AFD-4937-BF56-DCBAAF496075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE580672-3AFD-4937-BF56-DCBAAF496075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE580672-3AFD-4937-BF56-DCBAAF496075}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86D53155-DAFC-AF8F-D601-85DE8EE8DE9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86D53155-DAFC-AF8F-D601-85DE8EE8DE9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86D53155-DAFC-AF8F-D601-85DE8EE8DE9D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{86D53155-DAFC-AF8F-D601-85DE8EE8DE9D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{E6C418BD-FE60-CF18-05CB-67A870449800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6C418BD-FE60-CF18-05CB-67A870449800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6C418BD-FE60-CF18-05CB-67A870449800}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6C418BD-FE60-CF18-05CB-67A870449800}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,9 +1,17 @@
-/* task-list.component.css */
-.task-list {
-  max-width: 900px;
-  margin: 20px auto;
+.task-list-container {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-table {
-  margin-top: 10px;
+.filters {
+  display: flex;
+  align-items: center;
+}
+
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
 }

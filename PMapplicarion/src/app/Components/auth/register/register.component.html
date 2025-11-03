@@ -1,0 +1,45 @@
+<!-- src/app/Components/features/auth/register/register.component.html -->
+<div class="register-container d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="register-card shadow-lg p-4 rounded bg-white">
+    <h2 class="text-center mb-4 text-primary">
+      <i class="bi bi-person-plus-fill me-2"></i>Register Employee
+    </h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label fw-semibold">Name</label>
+        <input id="name" formControlName="name" class="form-control" placeholder="Enter full name" />
+        <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger small mt-1">
+          Name is required (min 3 characters)
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input id="email" formControlName="email" type="email" class="form-control" placeholder="Enter email" />
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">
+          Valid email is required
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="role" class="form-label fw-semibold">Role</label>
+        <select id="role" formControlName="role" class="form-select">
+          <option value="">Select Role</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary w-100" [disabled]="isSubmitting">
+        <i class="bi bi-person-check-fill me-1"></i>
+        {{ isSubmitting ? 'Registering...' : 'Register' }}
+      </button>
+
+      <div *ngIf="errorMessage" class="text-danger mt-3 text-center">
+        {{ errorMessage }}
+      </div>
+
+
+    </form>
+  </div>
+</div>

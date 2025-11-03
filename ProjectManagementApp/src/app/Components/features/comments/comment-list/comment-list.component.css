@@ -1,9 +1,79 @@
-/* comment-list.component.css */
 .comment-list {
-  margin-top: 10px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: 1.5rem auto;
+  max-width: 700px;
+}
+
+  .comment-list h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #343a40;
+  }
+
+.list-group {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
 }
 
 .list-group-item {
-  margin-bottom: 5px;
-  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  padding: 0.9rem 1.1rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+  .list-group-item:hover {
+    background-color: #f1f7ff;
+    box-shadow: 0 3px 6px rgba(0, 123, 255, 0.1);
+  }
+
+  .list-group-item strong {
+    color: #007bff;
+    font-weight: 500;
+  }
+
+  .list-group-item p {
+    margin: 0.5rem 0 0 0;
+    color: #212529;
+    font-size: 0.95rem;
+  }
+
+.text-muted {
+  font-size: 0.85rem;
+  color: #6c757d !important;
+}
+
+.text-danger {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 600px) {
+  .comment-list {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .list-group-item {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+
+    .list-group-item strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+  .text-muted.float-end {
+    float: none !important;
+    display: block;
+    margin-top: 0.2rem;
+  }
 }

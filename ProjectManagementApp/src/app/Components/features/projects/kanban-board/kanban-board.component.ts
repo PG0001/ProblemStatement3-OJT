@@ -1,7 +1,9 @@
-// kanban-board.component.ts
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Task } from '../../../../Models/Task';
 import { TaskService } from '../../../../Services/core/services/task.service';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+
+type TaskStatus = 'To Do' | 'In Progress' | 'Review' | 'Done'; // ✅ add this
 
 @Component({
   selector: 'app-kanban-board',
@@ -9,51 +11,65 @@ import { TaskService } from '../../../../Services/core/services/task.service';
   styleUrls: ['./kanban-board.component.css']
 })
 export class KanbanBoardComponent implements OnInit {
-  @Input() projectId!: number;
-
+  projectId = 1;
   tasks: Task[] = [];
-  columns = ['To Do', 'In Progress', 'Review', 'Done'];
-  isLoading = true;
-  errorMessage = '';
+  selectedTaskId?: number;
+  showTaskDetail = false;
+
+  // ✅ Use Record to ensure strong typing
+  groupedTasks: Record<TaskStatus, Task[]> = {
+    'To Do': [],
+    'In Progress': [],
+    'Review': [],
+    'Done': []
+  };
+
+  // ✅ A typed list of statuses (instead of string[])
+  readonly statuses: TaskStatus[] = ['To Do', 'In Progress', 'Review', 'Done'];
 
   constructor(private taskService: TaskService) { }
 
-  ngOnInit(): void {
-    if (this.projectId) {
-      this.loadTasks();
-    }
+  ngOnInit() {
+    this.loadTasks();
   }
 
   loadTasks() {
-    this.isLoading = true;
-    this.taskService.getTasks(this.projectId).subscribe({
+    this.taskService.getTasksByProject(this.projectId).subscribe({
       next: (res) => {
         this.tasks = res;
-        this.isLoading = false;
+        this.groupByStatus();
       },
-      error: (err) => {
-        this.errorMessage = err.error || 'Failed to load tasks';
-        this.isLoading = false;
-      }
+      error: (err) => console.error('Error loading tasks', err)
     });
   }
 
-
-  getTasksByStatus(status: string): Task[] {
-    return this.tasks.filter(t => t.status === status);
+  groupByStatus() {
+    for (const status of this.statuses) {
+      this.groupedTasks[status] = this.tasks.filter(t => t.status === status);
+    }
+  }
+  openTaskDetail(taskId: number) {
+    this.selectedTaskId = taskId;
+    this.showTaskDetail = true;
   }
 
-  // Optional: update task status when moved to another column
-  updateTaskStatus(taskId: number, newStatus: string) {
-    const task = this.tasks.find(t => t.taskId === taskId);
-    if (!task) return;
-    const updatedTask: Partial<Task> = {
-      ...task,
-      status: 'In Progress' as 'In Progress' // cast to correct union type
-    };
-    this.taskService.updateTask(taskId, updatedTask).subscribe({
-      next: () => this.loadTasks(),
-      error: err => console.error(err)
-    });
+  drop(event: CdkDragDrop<Task[]>, newStatus: TaskStatus) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      const movedTask = event.previousContainer.data[event.previousIndex];
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+
+      movedTask.status = newStatus;
+      this.taskService.updateTask(movedTask.taskId, { status: newStatus }).subscribe({
+        next: () => console.log(`Task moved to ${newStatus}`),
+        error: (err) => console.error('Update failed', err)
+      });
+    }
   }
 }

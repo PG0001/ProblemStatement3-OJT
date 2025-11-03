@@ -1,40 +1,26 @@
-<!-- task-list.component.html -->
-<div class="task-list">
-  <h3>Tasks</h3>
+<div class="task-list-container">
+  <h4>Tasks</h4>
 
-  <!-- Filters -->
-  <div class="mb-3">
-    <input type="text" [(ngModel)]="searchStatus" placeholder="Filter by status" class="form-control" />
-    <button class="btn btn-primary mt-2" (click)="filterTasks()">Filter</button>
+  <div class="filters mb-3">
+    <label>Status:</label>
+    <select (change)="onStatusChange($event)" class="form-select w-auto d-inline-block ms-2">
+      <option value="">All</option>
+      <option value="To Do">To Do</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Review">Review</option>
+      <option value="Done">Done</option>
+    </select>
   </div>
 
-  <div *ngIf="isLoading">Loading tasks...</div>
-  <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+  <div *ngIf="loading" class="text-center py-4">
+    Loading tasks...
+  </div>
 
-  <table *ngIf="!isLoading && tasks.length > 0" class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Assignee</th>
-        <th>Due Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let task of tasks">
-        <td>{{ task.title }}</td>
-        <td>{{ task.status }}</td>
-        <td>{{ task.assigneeName || 'Unassigned' }}</td>
-        <td>{{ task.dueDate | date:'shortDate' }}</td>
-        <td>
-          <button class="btn btn-sm btn-primary" (click)="viewTask(task.taskId)">View</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="!loading && tasks.length === 0" class="text-muted">
+    No tasks found.
+  </div>
 
-  <div *ngIf="!isLoading && tasks.length === 0">
-    No tasks found for this project.
+  <div class="task-list mt-3">
+    <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
   </div>
 </div>

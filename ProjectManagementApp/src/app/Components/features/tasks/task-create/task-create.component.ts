@@ -1,4 +1,3 @@
-// task-create.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../../../../Services/core/services/task.service';
@@ -12,6 +11,7 @@ import { AuthService } from '../../../../Services/core/services/auth.service';
 export class TaskCreateComponent {
   @Input() projectId!: number;
   @Output() taskCreated = new EventEmitter<void>();
+  @Output() close = new EventEmitter<boolean>(); // ✅ parent expects a boolean
 
   taskForm: FormGroup;
   isSubmitting = false;
@@ -54,12 +54,18 @@ export class TaskCreateComponent {
       next: () => {
         this.isSubmitting = false;
         this.taskForm.reset({ status: 'To Do' });
-        this.taskCreated.emit(); // notify parent to reload tasks
+        this.taskCreated.emit();
+        this.close.emit(true); // ✅ tell parent to close modal & refresh
       },
       error: (err) => {
         this.isSubmitting = false;
         this.errorMessage = err.error || 'Failed to create task';
       }
     });
+  }
+
+  // ✅ Add a cancel button handler
+  onCancel() {
+    this.close.emit(false); // close modal without refreshing
   }
 }

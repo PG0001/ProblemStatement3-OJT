@@ -1,13 +1,59 @@
-/* task-detail.component.css */
 .task-detail {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
   background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-hr {
-  margin: 20px 0;
+  .task-detail h5 {
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+.meta p {
+  margin: 4px 0;
+  color: #555;
+}
+
+.comments-section {
+  margin-top: 15px;
+}
+
+.comment {
+  background: #f9f9f9;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+  .comment .date {
+    color: #777;
+    font-size: 12px;
+    margin-left: 5px;
+  }
+
+.add-comment textarea {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 6px;
+  resize: none;
+}
+
+.loading, .empty {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+}
+.task-detail-container {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.comment-box {
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
 }

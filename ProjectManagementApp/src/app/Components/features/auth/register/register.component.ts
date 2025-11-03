@@ -1,4 +1,3 @@
-// register.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,6 +14,13 @@ export class RegisterComponent {
   isSubmitting = false;
   errorMessage = '';
 
+  // Mapping role names to numeric IDs
+  roleMapping: { [key: string]: number } = {
+    Admin: 1,
+    Manager: 2,
+    Employee: 3
+  };
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -27,7 +33,9 @@ export class RegisterComponent {
     });
   }
 
-  get f() { return this.registerForm.controls; }
+  get f() {
+    return this.registerForm.controls;
+  }
 
   onSubmit() {
     if (this.registerForm.invalid) return;
@@ -35,17 +43,26 @@ export class RegisterComponent {
     this.isSubmitting = true;
     this.errorMessage = '';
 
-    const payload = this.registerForm.value;
+    const formValue = this.registerForm.value;
+
+    // Convert role name to corresponding numeric ID
+    const payload = {
+      name: formValue.name,
+      email: formValue.email,
+      role: this.roleMapping[formValue.role]
+    };
+
     this.authService.register(payload).subscribe({
-      next: () => {
-        this.isSubmitting = false;
-        alert('Employee registered successfully!');
-        this.router.navigate(['/projects']); // redirect after success
+      next: (res) => {
+        console.log(res); // "Employee created successfully"
+        alert(res);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.isSubmitting = false;
-        this.errorMessage = err.error || 'Registration failed';
+        console.error(err);
+        this.errorMessage = 'Registration failed.';
       }
     });
+
   }
 }

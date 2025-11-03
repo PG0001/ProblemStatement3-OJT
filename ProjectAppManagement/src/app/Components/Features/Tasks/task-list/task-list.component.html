@@ -1,0 +1,100 @@
+<div class="task-list-container">
+  <!-- Header -->
+  <div class="header-section d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold text-primary mb-0">
+      <i class="bi bi-kanban me-2"></i> Task List
+    </h3>
+    <input type="text"
+           class="form-control search-box"
+           placeholder="🔍 Search tasks..."
+           [(ngModel)]="searchTerm"
+           (input)="onSearchChange()" />
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrapper shadow-sm rounded">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Due Date</th>
+                      
+          <th  *ngIf="userRole === 'Admin' || userRole === 'Manager'">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of paginatedTasks; let i = index">
+          <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+          <td class="fw-semibold text-primary">{{ task.title }}</td>
+          <td>
+            <span class="badge"
+                  [ngClass]="{
+                'bg-secondary': task.status === 'Review',
+                'bg-warning text-dark': task.status === 'In Progress',
+                'bg-success': task.status === 'Done'
+              }">
+              {{ task.status }}
+            </span>
+          </td>
+          <td>
+            <span class="badge"
+                  [ngClass]="{
+                'bg-success': task.priority === 'Low',
+                'bg-warning text-dark': task.priority === 'Medium',
+                'bg-danger': task.priority === 'High'
+              }">
+              {{ task.priority }}
+            </span>
+          </td>
+          <td>{{ task.dueDate | date: 'mediumDate' }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary me-2"
+                       *ngIf="userRole === 'Admin' || userRole === 'Manager'"
+                    (click)="onEdit(task.taskId)"
+                    title="Edit">
+              <i class="bi bi-pencil"></i> Edit
+            </button>
+            <button class="btn btn-sm btn-outline-danger"
+                       *ngIf="userRole === 'Admin' || userRole === 'Manager'"
+                    (click)="onDelete(task.taskId)"
+                    title="Delete">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="paginatedTasks.length === 0">
+          <td colspan="6" class="text-center text-muted py-4">
+            No tasks found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav class="d-flex justify-content-center mt-4" *ngIf="totalPages > 1">
+    <ul class="pagination pagination-sm mb-0">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="changePage(currentPage - 1)">
+          «
+        </button>
+      </li>
+
+      <li *ngFor="let page of pagesArray"
+          class="page-item"
+          [class.active]="page === currentPage">
+        <button class="page-link" (click)="changePage(page)">
+          {{ page }}
+        </button>
+      </li>
+
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="changePage(currentPage + 1)">
+          »
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+</div>

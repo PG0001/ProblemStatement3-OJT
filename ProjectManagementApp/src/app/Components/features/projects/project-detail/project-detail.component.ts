@@ -1,8 +1,6 @@
-// project-detail.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../../Services/core/services/project.service';
-import { Project } from '../../../../Models/Project';
 
 @Component({
   selector: 'app-project-detail',
@@ -11,9 +9,8 @@ import { Project } from '../../../../Models/Project';
 })
 export class ProjectDetailComponent implements OnInit {
   projectId!: number;
-  project?: Project;
-  isLoading = true;
-  errorMessage = '';
+  project: any;
+  summary: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,24 +20,25 @@ export class ProjectDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectId = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.projectId) {
-      this.loadProject();
-    } else {
-      this.errorMessage = 'Invalid project ID';
-    }
+    this.loadProjectDetails();
+    this.loadSummary();
   }
 
-  loadProject() {
-    this.isLoading = true;
-    this.projectService.getProjectById(this.projectId).subscribe({
-      next: (res) => {
-        this.project = res;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.errorMessage = err.error || 'Failed to load project';
-        this.isLoading = false;
-      }
+  loadProjectDetails() {
+    this.projectService.getProject(this.projectId).subscribe({
+      next: (data) => (this.project = data),
+      error: (err) => console.error('Error loading project details:', err)
     });
+  }
+
+  loadSummary() {
+    this.projectService.getProjectSummary(this.projectId).subscribe({
+      next: (data) => (this.summary = data),
+      error: (err) => console.error('Error loading summary:', err)
+    });
+  }
+
+  goBack() {
+    this.router.navigate(['/projects']);
   }
 }

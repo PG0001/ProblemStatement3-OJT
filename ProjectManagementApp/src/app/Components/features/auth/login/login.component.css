@@ -1,13 +1,139 @@
-/* login.component.css */
-.login-form {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 25px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fff;
+/* Full page background */
+.login-wrapper {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-.form-group {
-  margin-bottom: 15px;
+/* Glassmorphic login card */
+.card {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers everything horizontally */
+  justify-content: center;
+  text-align: center; /* Centers text */
+  padding: 2rem;
+}
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Heading */
+  .card h3 {
+    font-weight: 700;
+    color: #007bff;
+    text-transform: capitalize;
+    margin-bottom: 1.5rem;
+  }
+
+/* Form styling */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center the form fields */
+}
+
+/* Form fields */
+.form-label {
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+}
+
+.form-control {
+  border: 2px solid #e0e0e0;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease-in-out;
+  font-size: 15px;
+  padding: 10px 14px;
+  background-color: #fff;
+  width: 100%;
+  text-align: left;
+}
+
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+  }
+
+/* Validation states */
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  font-size: 13px;
+  color: #dc3545;
+  text-align: left;
+  width: 100%;
+}
+
+/* Button */
+.btn-primary {
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  border: none;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+  .btn-primary:hover {
+    background: linear-gradient(90deg, #0069d9, #00aaff);
+    transform: scale(1.02);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+/* Alert styling */
+.alert {
+  font-size: 14px;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
+}
+
+/* Register link */
+.text-center small {
+  font-size: 14px;
+}
+
+a {
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+  a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+/* Smooth appearance for touched/untouched fields */
+.ng-touched:not(.ng-valid):not(:focus) {
+  border-color: #ffc107;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .card {
+    width: 100%;
+    padding: 1.5rem;
+  }
 }

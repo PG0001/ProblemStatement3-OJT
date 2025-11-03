@@ -36,6 +36,12 @@ export class DashboardChartsComponent implements OnInit {
 
   loadChartData() {
     this.isLoading = true;
+    console.log('Loading chart data for projectId:', this.projectId);
+    if (!this.projectId) {
+      this.errorMessage = 'Invalid project ID or No Projects Yet  ';
+      this.isLoading = false;
+      return;
+    }
     this.dashboardService.getTaskChartData(this.projectId).subscribe({
       next: (res: TaskChartData[]) => {
         this.chartData.labels = res.map(r => r.status);

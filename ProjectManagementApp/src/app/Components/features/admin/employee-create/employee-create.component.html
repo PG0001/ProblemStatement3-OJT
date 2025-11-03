@@ -1,37 +1,43 @@
-<!-- employee-create.component.html -->
-<div class="employee-create-form">
-  <h2>Create Employee</h2>
+<!-- src/app/Components/features/admin/employee-create/employee-create.component.html -->
+<div class="employee-create-container d-flex justify-content-center align-items-center bg-light py-5">
+  <div class="employee-card shadow-sm p-4 bg-white rounded">
+    <h3 class="text-center mb-4 text-primary">
+      <i class="bi bi-person-plus-fill me-2"></i> Create New Employee
+    </h3>
 
-  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input id="name" formControlName="name" class="form-control" />
-      <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger">
-        Name is required (min 3 characters)
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label fw-semibold">Name</label>
+        <input id="name" formControlName="name" class="form-control" placeholder="Enter employee name" />
+        <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger small mt-1">
+          Name is required (min 3 characters)
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" class="form-control" />
-      <div *ngIf="f['email'].touched &&f['email'].invalid" class="text-danger">
-        Valid email is required
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input id="email" formControlName="email" type="email" class="form-control" placeholder="Enter email address" />
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">
+          Valid email is required
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="role">Role</label>
-      <select id="role" formControlName="role" class="form-control">
-        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-      </select>
-    </div>
+      <div class="mb-4">
+        <label for="role" class="form-label fw-semibold">Role</label>
+        <select id="role" formControlName="role" class="form-select">
+          <option value="">Select Role</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
 
-    <button class="btn btn-primary" [disabled]="isSubmitting">
-      {{ isSubmitting ? 'Creating...' : 'Create Employee' }}
-    </button>
+      <button class="btn btn-primary w-100" [disabled]="isSubmitting">
+        <i class="bi bi-save me-1"></i>
+        {{ isSubmitting ? 'Creating...' : 'Create Employee' }}
+      </button>
 
-    <div *ngIf="errorMessage" class="text-danger mt-2">
-      {{ errorMessage }}
-    </div>
-  </form>
+      <div *ngIf="errorMessage" class="text-danger mt-3 text-center">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
 </div>

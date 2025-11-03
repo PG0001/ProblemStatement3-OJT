@@ -1,4 +1,5 @@
-﻿using ProjectManagementAPI.Models.Dtos.Tasks;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using ProjectManagementAPI.Models.Dtos.Tasks;
 using ProjectManagementAPI.Services.Interfaces;
 using ProjectManagementLibrary.Interfaces;
 using ProjectManagementLibrary.Models;
@@ -58,6 +59,8 @@ namespace ProjectManagementAPI.Services
 
         public async Task<IEnumerable<TaskDto>> GetTasksAsync(int projectId, string? status = null, int? assigneeId = null, int page = 1, int pageSize = 10)
         {
+            if (projectId <= 0)
+                return null;
             var tasks = await _taskRepo.GetByProjectIdAsync(projectId, status, assigneeId ?? 0, page, pageSize);
             return tasks.Select(t => new TaskDto
             {

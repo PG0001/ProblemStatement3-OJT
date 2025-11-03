@@ -28,6 +28,10 @@ import { NgChartsModule } from 'ng2-charts';
 import { TaskListComponent } from './Components/features/tasks/task-list/task-list.component';
 import { NavBarComponent } from './Components/shared/components/navbar/navbar.component';
 import { AuthGuard } from './Components/Guard/auth-guard/auth-guard.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './Services/core/interceptors/auth-interceptor.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,10 +63,15 @@ import { AuthGuard } from './Components/Guard/auth-guard/auth-guard.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    NgChartsModule
+    NgChartsModule,
+    DragDropModule
   ],
    
-  providers: [AuthGuard],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

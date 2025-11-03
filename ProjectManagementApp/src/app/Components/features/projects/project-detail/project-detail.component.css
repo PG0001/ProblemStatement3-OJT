@@ -1,13 +1,40 @@
-/* project-detail.component.css */
-.project-detail {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fff;
+.kanban-board {
+  gap: 1rem;
 }
 
-hr {
-  margin: 20px 0;
+.kanban-column {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 75vh;
+}
+
+.task-list {
+  min-height: 200px;
+}
+
+.task-card {
+  background: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: grab;
+}
+
+  .task-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+.badge.bg-low {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.badge.bg-medium {
+  background-color: #fff3cd;
+  color: #664d03;
+}
+
+.badge.bg-high {
+  background-color: #f8d7da;
+  color: #842029;
 }

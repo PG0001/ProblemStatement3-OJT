@@ -1,0 +1,37 @@
+<div class="dashboard-container">
+  <div class="min-h-screen bg-gray-50 py-8 px-4">
+    <div class="max-w-7xl mx-auto space-y-8">
+
+      <!-- 🧭 Project Header -->
+      <div class="project-header">
+        <div class="project-header-left">
+          <div class="project-title-row">
+            <span class="accent-bar"></span>
+            <h2 class="project-title">Projects Dashboard</h2>
+          </div>
+
+          <p class="project-description">
+            Manage all your projects efficiently — create, edit, and view project details.
+          </p>
+        </div>
+
+        <div class="project-header-actions">
+          <button class="btn-primary" (click)="openAddForm()">+ Add Project</button>
+        </div>
+      </div>
+
+      <!-- 🧩 Dynamic Content -->
+      <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+        <app-project-list *ngIf="!showForm"
+                          (editProject)="openEditForm($event)">
+        </app-project-list>
+
+        <app-project-form *ngIf="showForm"
+                          [projectId]="selectedProjectId"
+                          (closeForm)="onFormClose()">
+        </app-project-form>
+      </div>
+
+    </div>
+  </div>
+</div>

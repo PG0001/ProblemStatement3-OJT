@@ -1,0 +1,47 @@
+<div class="dashboard-container">
+  <!-- Back Button -->
+  <button class="back-btn"
+          [routerLink]="['/projects', projectId, 'tasks']">
+    ← Back to Tasks
+  </button>
+
+  <!-- Title -->
+  <h2 class="dashboard-title">📈 Project Dashboard</h2>
+
+  <!-- Loading and Error Messages -->
+  <div *ngIf="isLoading" class="loading">Loading...</div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Summary Card -->
+  <div *ngIf="!isLoading && summary" class="summary-card">
+    <h3 class="summary-title">{{ summary.projectName }}</h3>
+
+    <div class="summary-grid">
+      <p><strong>Total Tasks:</strong> {{ summary.totalTasks }}</p>
+      <p><strong>To Do:</strong> <span class="text-gray">{{ summary.toDoCount }}</span></p>
+
+      <p><strong>In Progress:</strong> <span class="text-yellow">{{ summary.inProgressCount }}</span></p>
+      <p><strong>Completed:</strong> <span class="text-green">{{ summary.doneCount }}</span></p>
+
+      <p><strong>Overdue:</strong> <span class="text-red">{{ summary.overdueCount }}</span></p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+      <label class="progress-label">Project Completion</label>
+
+      <div class="progress-container">
+        <div class="progress-bar"
+             [style.width.%]="summary.completionPercentage">
+        </div>
+      </div>
+
+      <p class="completion-text">
+        {{ summary.completionPercentage | number : '1.0-2' }}% completed
+      </p>
+    </div>
+  </div>
+</div>

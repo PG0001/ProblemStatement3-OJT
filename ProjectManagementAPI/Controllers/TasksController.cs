@@ -38,6 +38,10 @@ namespace ProjectManagementAPI.Controllers
         [HttpGet("projects/{projectId}/tasks")]
         public async Task<IActionResult> GetTasks(int projectId, [FromQuery] string? status = null, [FromQuery] int? assigneeId = null, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
+                if (projectId <= 0)
+                    return BadRequest(new { message = "Invalid projectId" });
+
+
             var tasks = await _taskService.GetTasksAsync(projectId, status, assigneeId, page, pageSize);
             return Ok(tasks);
         }

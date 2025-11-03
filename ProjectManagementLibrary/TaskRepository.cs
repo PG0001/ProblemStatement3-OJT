@@ -28,29 +28,32 @@ namespace ProjectManagementLibrary
         }
 
         public async Task<IEnumerable<TaskItem>> GetByProjectIdAsync(
-     int projectId,
-     string? status = null,
-     int? assigneeId = null,
-     int page = 1,
-     int pageSize = 10)
+         int projectId,
+         string? status = null,
+         int? assigneeId = null,
+         int page = 1,
+         int pageSize = 10)
         {
             var query = _context.TaskItems
+                .Include(t => t.AssignedTo)
+                .Include(t => t.Project)
                 .Where(t => t.ProjectId == projectId)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(status))
                 query = query.Where(t => t.Status == status);
 
-            if (assigneeId.HasValue)
+            // ✅ Only apply filter if assigneeId is valid (> 0)
+            if (assigneeId.HasValue && assigneeId.Value > 0)
                 query = query.Where(t => t.AssignedToId == assigneeId.Value);
 
             return await query
-                .Include(t => t.AssignedTo)
-                .Include(t => t.Project)
+                .OrderByDescending(t => t.CreatedAt) // optional: newest first
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
         }
+
 
 
         public async Task AddAsync(TaskItem task)

@@ -1,8 +1,6 @@
-// task-list.component.ts
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Task } from '../../../../Models/Task';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { TaskService } from '../../../../Services/core/services/task.service';
+import { Task } from '../../../../Models/Task';
 
 @Component({
   selector: 'app-task-list',
@@ -10,48 +8,63 @@ import { TaskService } from '../../../../Services/core/services/task.service';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
-  @Input() projectId!: number;
+  @Input() projectId: number = 0;
 
   tasks: Task[] = [];
-  isLoading = true;
+  loading = true;
   errorMessage = '';
+  selectedStatus = '';
+  selectedAssigneeId?: number;
 
-  searchStatus: string = '';
-  assigneeId?: number;
+  page = 1;
+  pageSize = 10;
 
-  page: number = 1;
-  pageSize: number = 10;
-
-  constructor(
-    private taskService: TaskService,
-    private router: Router
-  ) { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.loadTasks();
   }
 
-  loadTasks() {
-    this.isLoading = true;
-    this.taskService.getTasks(this.projectId, this.searchStatus, this.assigneeId, this.page, this.pageSize)
+  loadTasks(): void {
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.taskService.getTasks(this.projectId, this.selectedStatus, this.selectedAssigneeId, this.page, this.pageSize)
       .subscribe({
-        next: (res) => {
-          this.tasks = res;
-          this.isLoading = false;
+        next: (data) => {
+          console.log('Tasks loaded:', data);
+          this.tasks = Array.isArray(data) ? data : [];
+          this.loading = false;
         },
+
         error: (err) => {
-          this.errorMessage = err.error || 'Failed to load tasks';
-          this.isLoading = false;
+          console.error('Task load error:', err);
+          // Try to extract message safely
+          if (err.error?.message) {
+            this.errorMessage = err.error.message;
+          } else if (typeof err.error === 'string') {
+            this.errorMessage = err.error;
+          } else {
+            this.errorMessage = 'Failed to load tasks';
+          }
+          this.loading = false;
         }
       });
   }
 
-  filterTasks() {
-    this.page = 1; // reset page
+
+  onStatusChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const value = selectElement.value;
+    console.log('Selected status:', value);
+
+    this.selectedStatus = value;  // ✅ correct variable
     this.loadTasks();
   }
 
-  viewTask(taskId: number) {
-    this.router.navigate(['/tasks', taskId]);
+
+  onPageChange(page: number): void {
+    this.page = page;
+    this.loadTasks();
   }
 }

@@ -1,0 +1,38 @@
+<div class="project-form-container">
+  <div class="form-card">
+    <h3 class="form-title">
+      {{ isEditMode ? '✏️ Edit Project' : '➕ Add New Project' }}
+    </h3>
+
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="form-body">
+      <div class="form-group">
+        <label class="form-label">Project Name</label>
+        <input type="text" class="form-input" formControlName="name" placeholder="Enter project name" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" formControlName="description" placeholder="Enter project description"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label class="form-label">Start Date</label>
+          <input type="date" class="form-input" formControlName="startDate" />
+        </div>
+
+        <div class="form-group flex-1">
+          <label class="form-label">End Date</label>
+          <input type="date" class="form-input" formControlName="endDate" />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save">
+          {{ isEditMode ? '💾 Update' : '✅ Save' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

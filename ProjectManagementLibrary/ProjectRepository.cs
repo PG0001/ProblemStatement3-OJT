@@ -25,21 +25,26 @@ namespace ProjectManagementLibrary
                 .FirstOrDefaultAsync(p => p.ProjectId == projectId);
         }
 
-        public async Task<IEnumerable<Project>> GetAllAsync(int page, int pageSize, int? managerId = null, string? search = null)
+        public async Task<(IEnumerable<Project>, int)> GetAllAsync(int page, int pageSize, int? managerId, string? search)
         {
             var query = _context.Projects.AsQueryable();
 
             if (managerId.HasValue)
                 query = query.Where(p => p.ManagerId == managerId.Value);
 
-            if (!string.IsNullOrEmpty(search))
-                query = query.Where(p => p.Name.Contains(search));
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(p => p.Name.Contains(search) || p.Description.Contains(search));
 
-            return await query
-                .Include(p => p.Manager) // optional: eager load manager
+            var totalCount = await query.CountAsync();
+
+            var projects = await query
+                .OrderByDescending(p => p.StartDate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
+                .Include(p => p.Tasks)
                 .ToListAsync();
+
+            return (projects, totalCount);
         }
 
         public async Task AddAsync(Project project)

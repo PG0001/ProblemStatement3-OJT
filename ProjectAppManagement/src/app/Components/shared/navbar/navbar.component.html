@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a class="brand" routerLink="/">ProjectManager</a>
+
+    <ul class="nav-links">
+      <li *ngIf="isLoggedIn"><a routerLink="/dashboard" routerLinkActive="active">Projects</a></li>
+
+      <li *ngIf="userRole === 'Admin' || userRole === 'Manager'"><a routerLink="/Employee" routerLinkActive="active">Users</a></li>
+
+      <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
+      <li *ngIf="isLoggedIn">
+        <button class="logout" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -2,6 +2,12 @@
 <div class="dashboard-summary" *ngIf="!isLoading && summary">
  
   <div class="summary-card">
+    ' <h2>Welcome back!</h2>
+    <div class="summary-cards">
+      <div class="card" (click)="goTo('projects')">Projects</div>
+      <div class="card" (click)="goTo('tasks')">Tasks</div>
+      <div class="card" (click)="goTo('employees')">Employees</div>
+    </div>'
     <h5>Total Tasks</h5>
     <p>{{ summary.totalTasks }}</p>
   </div>

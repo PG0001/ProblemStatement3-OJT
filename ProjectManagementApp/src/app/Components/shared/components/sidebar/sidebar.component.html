@@ -1,14 +1,8 @@
-<!-- sidebar.component.html -->
-<div class="sidebar" *ngIf="isLoggedIn">
-  <ul class="sidebar-nav">
-    <li class="sidebar-item" routerLinkActive="active">
-      <a (click)="navigate('/projects')">Projects</a>
-    </li>
-    <li class="sidebar-item" routerLinkActive="active">
-      <a (click)="navigate('/tasks')">Tasks</a>
-    </li>
-    <li class="sidebar-item" *ngIf="employeeRole === 'Admin'" routerLinkActive="active">
-      <a (click)="navigate('/admin/employees')">Employees</a>
-    </li>
+<nav class="sidebar">
+  <ul>
+    <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+    <li><a routerLink="/projects" routerLinkActive="active">Projects</a></li>
+    <li><a routerLink="/tasks" routerLinkActive="active">Tasks</a></li>
+    <li><a routerLink="/employees" routerLinkActive="active">Employees</a></li>
   </ul>
-</div>
+</nav>

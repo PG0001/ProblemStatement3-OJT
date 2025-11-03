@@ -10,6 +10,7 @@ import { Comment } from '../../../../Models/Comment';
 export class CommentListComponent implements OnInit {
   @Input() taskId!: number;
 
+  @Input() projectId!: number;
   comments: Comment[] = [];
   isLoading = true;
   errorMessage = '';

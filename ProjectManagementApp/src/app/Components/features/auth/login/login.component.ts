@@ -1,5 +1,5 @@
-// login.component.ts
-import { Component } from '@angular/core';
+// src/app/Components/Auth/login/login.component.ts
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../Services/core/services/auth.service';
@@ -9,8 +9,8 @@ import { AuthService } from '../../../../Services/core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   isSubmitting = false;
   errorMessage = '';
 
@@ -18,37 +18,40 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) {
+  ) { }
+
+  ngOnInit(): void {
+    // Redirect if already logged in
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/projects']);
+    }
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
-  
   }
 
-  get f() { return this.loginForm.controls; }
-  onSubmit() {
+  get f() {
+    return this.loginForm.controls;
+  }
+
+  onSubmit(): void {
     if (this.loginForm.invalid) return;
 
     this.isSubmitting = true;
     this.errorMessage = '';
 
     this.authService.login(this.loginForm.value).subscribe({
-      next: (res) => {
-        // res should contain both token and employeeId from backend
-        this.authService.setToken(res.token, res.employeeId);
-
+      next: res => {
+        console.log(res)
         this.isSubmitting = false;
-
-        // Optional: check role if returned from backend
-        // const isAdmin = res.role === 'Admin';
-
-        this.router.navigate(['/projects']); // redirect to project list
+        this.router.navigate(['/projects']);
       },
-      error: (err) => {
+      error: err => {
+        console.log(err)
         this.isSubmitting = false;
-        this.errorMessage = err.error || 'Login failed';
+        this.errorMessage = err.error?.message || 'Invalid email or user not found.';
       }
     });
   }
-
 }

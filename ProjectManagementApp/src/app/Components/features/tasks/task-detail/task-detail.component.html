@@ -1,17 +1,29 @@
-<!-- task-detail.component.html -->
-<div class="task-detail" *ngIf="!isLoading && task">
-  <h3>{{ task.title }}</h3>
-  <p><strong>Description:</strong> {{ task.description }}</p>
-  <p><strong>Status:</strong> {{ task.status }}</p>
-  <p><strong>Assignee:</strong> {{ task.assigneeName || 'Unassigned' }}</p>
-  <p><strong>Due Date:</strong> {{ task.dueDate | date:'shortDate' }}</p>
-  <p><strong>Created By:</strong> {{ task.createdDate }}</p>
-
-  <hr />
-
-  <!-- Optional: show comments if you want -->
-  <!-- <app-comment-list [taskId]="task.taskId"></app-comment-list> -->
+<div *ngIf="loading" class="text-center py-4">
+  <p>Loading task details...</p>
 </div>
 
-<div *ngIf="isLoading">Loading task details...</div>
-<div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+<div *ngIf="!loading && task" class="task-detail-container">
+  <h4>{{ task.title }}</h4>
+  <p><strong>Status:</strong> {{ task.status }}</p>
+  <p><strong>Assignee:</strong> {{ task.assigneeName || 'Unassigned' }}</p>
+  <p><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
+  <p><strong>Description:</strong> {{ task.description }}</p>
+
+  <hr />
+  <h5>Comments</h5>
+
+  <div *ngIf="comments.length === 0" class="text-muted">No comments yet.</div>
+
+  <div *ngFor="let c of comments" class="comment-box mb-2">
+    <p class="mb-1">{{ c.content }}</p>
+    <small class="text-muted">{{ c.createdDate | date:'short' }}</small>
+  </div>
+
+  <div class="mt-3">
+    <textarea [(ngModel)]="newComment"
+              placeholder="Add a comment..."
+              rows="2"
+              class="form-control mb-2"></textarea>
+    <button class="btn btn-primary btn-sm" (click)="addComment()">Post Comment</button>
+  </div>
+</div>

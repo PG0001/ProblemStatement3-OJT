@@ -35,7 +35,7 @@ namespace ProjectManagementAPI.Controllers
                 return Unauthorized("Employee not found");
 
             var token = GenerateJwtToken(user);
-            return Ok(new { token });
+            return Ok(new { token, user.EmployeeId ,user.Role});
         }
         [Authorize(Roles = "Admin")]
         [HttpGet("employees")]
@@ -44,7 +44,7 @@ namespace ProjectManagementAPI.Controllers
             var employees = await _employeeRepository.GetAllAsync();
             return Ok(employees);
         }
-
+      
 
         [Authorize(Roles = "Admin")]
         [HttpPost("register")]

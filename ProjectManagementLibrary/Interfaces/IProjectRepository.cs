@@ -10,7 +10,7 @@ namespace ProjectManagementLibrary.Interfaces
     public interface IProjectRepository
     {
         Task<Project?> GetByIdAsync(int projectId);
-        Task<IEnumerable<Project>> GetAllAsync(int page, int pageSize, int? managerId = null, string? search = null);
+        Task<(IEnumerable<Project>, int)> GetAllAsync(int page, int pageSize, int? managerId, string? search);
         Task AddAsync(Project project);
         Task UpdateAsync(Project project);
         Task DeleteAsync(Project project);

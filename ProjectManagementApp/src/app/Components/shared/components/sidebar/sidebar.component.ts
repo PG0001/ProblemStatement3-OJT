@@ -16,7 +16,7 @@ export class SidebarComponent {
   }
 
   get employeeRole(): string | null {
-    return localStorage.getItem('employeeRole');
+    return sessionStorage.getItem('employeeRole');
   }
 
   navigate(path: string) {

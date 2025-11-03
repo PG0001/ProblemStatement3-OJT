@@ -1,0 +1,50 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.chart-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+  .chart-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.text-danger {
+  color: #dc3545;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+
+div[ngIf="isLoading"] {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #007bff;
+  font-weight: 500;
+  padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    padding: 1.2rem;
+    margin: 1rem;
+  }
+
+  div[ngIf="isLoading"] {
+    font-size: 1rem;
+  }
+}

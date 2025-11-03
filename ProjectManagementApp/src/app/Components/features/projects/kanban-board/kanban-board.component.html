@@ -1,22 +1,13 @@
-<div class="kanban-board">
-  <h3>Kanban Board</h3>
+<!-- kanban-board.component.html -->
+<div class="kanban-container">
+  <div *ngFor="let status of statuses" class="kanban-column" cdkDropList
+       [cdkDropListData]="groupedTasks[status]"
+       (cdkDropListDropped)="drop($event, status)">
+    <h5>{{ status }} ({{ groupedTasks[status].length }})</h5>
 
-  <div *ngIf="isLoading">Loading tasks...</div>
-  <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
-
-  <div class="kanban-columns" *ngIf="!isLoading && tasks.length > 0">
-    <div class="kanban-column" *ngFor="let col of columns">
-      <h5>{{ col }}</h5>
-      <div class="task-card-wrapper" *ngFor="let task of getTasksByStatus(col)">
-        <app-task-card [task]="task"
-                       [columns]="columns"
-                       (statusChanged)="updateTaskStatus($event.taskId, $event.newStatus)">
-        </app-task-card>
-      </div>
+    <div *ngFor="let task of groupedTasks[status]" cdkDrag>
+      <app-task-card [task]="task" (openDetail)="openTaskDetail($event)"></app-task-card>
     </div>
   </div>
 
-  <div *ngIf="!isLoading && tasks.length === 0">
-    No tasks available for this project.
-  </div>
 </div>

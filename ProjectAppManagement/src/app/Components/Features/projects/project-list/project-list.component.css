@@ -1,0 +1,244 @@
+/* Main container */
+.project-list-container {
+  background: #f9fbfd;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* Header layout */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  width: 280px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+  .search-box:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+  }
+
+/* Table styling */
+.table-wrapper {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+  .table thead {
+    background: #2563eb;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .table tbody tr:hover {
+    background-color: #f2f6ff;
+    transition: 0.2s ease;
+  }
+
+  /* Action buttons */
+  .table td button {
+    min-width: 35px;
+    height: 35px;
+    margin: 0 4px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+  }
+
+.btn-outline-primary {
+  color: #2563eb;
+  border-color: #2563eb;
+}
+
+  .btn-outline-primary:hover {
+    background: #2563eb;
+    color: #fff;
+  }
+
+.btn-outline-danger {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+  .btn-outline-danger:hover {
+    background: #ef4444;
+    color: #fff;
+  }
+
+.btn-outline-success {
+  color: #16a34a;
+  border-color: #16a34a;
+}
+
+  .btn-outline-success:hover {
+    background: #16a34a;
+    color: #fff;
+  }
+
+/* Pagination */
+nav {
+  margin-top: 1.5rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.page-link {
+  border-radius: 8px !important;
+  color: #2563eb;
+  border: 1px solid #dee2e6;
+  padding: 0.4rem 0.7rem;
+  transition: all 0.2s ease;
+}
+
+  .page-link:hover {
+    background-color: #eaf0ff;
+    border-color: #2563eb;
+  }
+
+.page-item.active .page-link {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.page-item.disabled .page-link {
+  color: #aaa;
+  pointer-events: none;
+  background-color: #f8f9fa;
+}
+
+/* Responsive fix */
+@media (max-width: 768px) {
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .table-wrapper {
+    padding: 0.5rem;
+  }
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.pagination {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.page-link {
+  border-radius: 8px !important;
+  color: #2563eb;
+  border: 1px solid #dee2e6;
+  transition: 0.2s;
+}
+
+  .page-link:hover {
+    background-color: #eaf0ff;
+    border-color: #2563eb;
+  }
+
+.page-item.active .page-link {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.page-item.disabled .page-link {
+  color: #ccc;
+}
+/* --- Pagination Layout Fix --- */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.pagination {
+  display: flex; /* 👈 ensures items align horizontally */
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* allows responsive wrap if screen is small */
+  list-style: none; /* remove bullet points */
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  gap: 6px; /* spacing between buttons */
+}
+
+.page-item {
+  display: inline-flex;
+}
+
+.page-link {
+  display: inline-flex; /* ensures button shape */
+  justify-content: center;
+  align-items: center;
+  min-width: 35px;
+  height: 35px;
+  font-size: 14px;
+  border-radius: 8px !important;
+  color: #2563eb;
+  border: 1px solid #dee2e6;
+  background: white;
+  transition: 0.2s ease;
+}
+
+  .page-link:hover {
+    background-color: #eaf0ff;
+    border-color: #2563eb;
+  }
+
+.page-item.active .page-link {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.page-item.disabled .page-link {
+  color: #ccc;
+  pointer-events: none;
+}

@@ -10,9 +10,12 @@ import { AuthService } from '../../../../Services/core/services/auth.service';
 })
 export class NavBarComponent {
   Role: string = '';
+  userName : string | null = ''
   constructor(private authService: AuthService, private router: Router) { }
   ngoninit() {
-    this.Role = localStorage.getItem('role') || '';
+    this.Role = sessionStorage.getItem('role') || '';
+    this.userName = sessionStorage.getItem('employeeName');
+  
   }
 
   get isLoggedIn(): boolean {
@@ -20,7 +23,7 @@ export class NavBarComponent {
   }
 
   get employeeName(): string | null {
-    return localStorage.getItem('employeeName');
+    return sessionStorage.getItem('employeeName');
   }
 
   logout() {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementAPI.Models.Dtos.Projects;
+using ProjectManagementAPI.Services;
 using ProjectManagementAPI.Services.Interfaces;
 using ProjectManagementLibrary.Interfaces;
 using ProjectManagementLibrary.Models;
@@ -35,11 +36,16 @@ namespace ProjectManagementAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProjects([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] int? managerId = null, [FromQuery] string? search = null)
+        public async Task<IActionResult> GetProjects(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10,
+        [FromQuery] int? managerId = null,
+        [FromQuery] string? search = "")
         {
-            var projects = await _service.GetProjectsAsync(page, pageSize, managerId, search);
-            return Ok(projects);
+            var result = await _service.GetProjectsAsync(page, pageSize, managerId, search);
+            return Ok(result);
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProjectById(int id)
@@ -53,6 +59,9 @@ namespace ProjectManagementAPI.Controllers
         [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> UpdateProject(int id, [FromBody] ProjectCreatedDto dto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
                 await _service.UpdateProjectAsync(id, dto);

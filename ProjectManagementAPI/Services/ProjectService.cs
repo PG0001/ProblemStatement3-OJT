@@ -41,11 +41,11 @@ namespace ProjectManagementAPI.Services
                 TaskCount = project.Tasks?.Count ?? 0
             };
         }
-
-        public async Task<IEnumerable<ProjectDto>> GetProjectsAsync(int page, int pageSize, int? managerId, string? search)
+        public async Task<PaginatedResult<ProjectDto>> GetProjectsAsync(int page, int pageSize, int? managerId, string? search)
         {
-            var projects = await _repo.GetAllAsync(page, pageSize, managerId, search);
-            return projects.Select(p => new ProjectDto
+            var (projects, totalCount) = await _repo.GetAllAsync(page, pageSize, managerId, search);
+
+            var projectDtos = projects.Select(p => new ProjectDto
             {
                 ProjectId = p.ProjectId,
                 Name = p.Name,
@@ -55,7 +55,14 @@ namespace ProjectManagementAPI.Services
                 ManagerId = p.ManagerId,
                 TaskCount = p.Tasks?.Count ?? 0
             });
+
+            return new PaginatedResult<ProjectDto>
+            {
+                Items = projectDtos,
+                TotalCount = totalCount
+            };
         }
+
 
         public async Task<ProjectDto> GetProjectByIdAsync(int id)
         {

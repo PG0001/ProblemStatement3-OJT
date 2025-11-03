@@ -23,8 +23,8 @@ namespace ProjectManagementAPI.Services
 
             int totalTasks = tasks.Count;
             int completed = tasks.Count(t => t.Status == "Done");
-            int inProgress = tasks.Count(t => t.Status == "InProgress");
-            int todo = tasks.Count(t => t.Status == "ToDo");
+            int inProgress = tasks.Count(t => t.Status == "In Progress" || t.Status == "Review" );
+            int todo = tasks.Count(t => t.Status == "To Do");
             int overdue = tasks.Count(t => t.DueDate < DateTime.UtcNow.Date && t.Status != "Done");
 
             double completionPercentage = totalTasks == 0 ? 0 : ((double)completed / totalTasks) * 100;
@@ -34,9 +34,9 @@ namespace ProjectManagementAPI.Services
                 ProjectId = project.ProjectId,
                 ProjectName = project.Name,
                 TotalTasks = totalTasks,
-                CompletedCount = completed,
+                DoneCount = completed,
                 InProgressCount = inProgress,
-                TodoCount = todo,
+                ToDoCount = todo,
                 OverdueCount = overdue,
                 CompletionPercentage = Math.Round(completionPercentage, 2)
             };

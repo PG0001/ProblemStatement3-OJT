@@ -1,0 +1,146 @@
+<div class="dashboard-container">
+  <div class="min-h-screen bg-gray-50 py-8 px-4">
+    <div class="max-w-7xl mx-auto space-y-8">
+      <div class="flex items-center mb-4">
+        <button class="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md shadow-sm transition"
+                [routerLink]="['/projects']">
+          ← Go Back
+        </button>
+      </div>
+      <!-- 🧩 Project Header -->
+      <div class="project-header">
+        <div class="project-header-left">
+          <div class="project-title-row">
+            <span class="accent-bar"></span>
+            <h2 class="project-title">{{ project?.name || 'Loading Project...' }}</h2>
+          </div>
+
+          <p class="project-description">
+            {{ project?.description || 'No description available.' }}
+          </p>
+
+          <div class="project-meta">
+            <div>
+              <span class="label">📅 Start:</span>
+              <span class="value">{{ project?.startDate | date }}</span>
+            </div>
+            <div>
+              <span class="label">🏁 End:</span>
+              <span class="value">{{ project?.endDate | date }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-header-actions">
+          <button class="btn-primary" *ngIf="userRole === 'Admin' || userRole === 'Manager'"(click)="openTaskForm()">+ Add Task</button>
+          <button class="btn-secondary" [routerLink]="['/projects', 'dashboard', projectId]">📊 View Dashboard</button>
+        </div>
+      </div>
+      <!-- 🧩 Task Form Modal -->
+      <div *ngIf="isFormVisible"
+           class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
+          <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500"
+                  (click)="onFormClosed()">
+            ✖
+          </button>
+
+          <app-task-form *ngIf="isFormVisible"
+                         [projectId]="projectId"
+                         [taskId]="selectedTaskId"
+                         (closeForm)="onFormClosed()">
+          </app-task-form>
+        </div>
+      </div>
+
+      <!-- 🧩 Kanban Board -->
+      <div class="kanban-board flex flex-row gap-6 overflow-x-auto pb-4">
+        <div *ngFor="let column of columns"
+             class="kanban-column flex-1 min-w-[320px] bg-gray-100 rounded-lg p-4 shadow">
+          <h3 class="text-lg font-bold mb-3 text-center text-gray-700 uppercase tracking-wide">
+            {{ column }}
+          </h3>
+
+          <div cdkDropList
+               [id]="column"
+               [cdkDropListData]="getTasksByStatus(column)"
+               [cdkDropListConnectedTo]="columns"
+               class="p-3 bg-white rounded-lg min-h-[320px] transition-colors"
+               (cdkDropListDropped)="drop($event, column)">
+            <div *ngFor="let task of getTasksByStatus(column)"
+                 cdkDrag
+                 class="task-card p-3 mb-3 rounded-lg shadow hover:shadow-md cursor-move border transition"
+                 (click)="openTaskDetail(task.taskId)"
+                 [ngClass]="{
+                'task-low': task.priority === 'Low',
+                'task-medium': task.priority === 'Medium',
+                'task-high': task.priority === 'High'
+              }">
+
+              <h4 class="font-semibold text-blue-800">{{ task.title }}</h4>
+              <p class="text-sm text-gray-600">{{ task.description }}</p>
+
+              <div class="flex justify-between text-xs text-gray-500 mt-2">
+                <span [ngClass]="{
+                  'bg-green-200 text-green-800 px-2 py-1 rounded': task.priority === 'Low',
+                  'bg-yellow-200 text-yellow-800 px-2 py-1 rounded': task.priority === 'Medium',
+                  'bg-red-200 text-red-800 px-2 py-1 rounded': task.priority === 'High'
+                }">
+                  {{ task.priority }}
+                </span>
+              </div>
+
+              <!-- 👤 Assigned To + Due Date -->
+              <div class="mt-3 border-t border-gray-200 pt-2">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-xs text-gray-500 font-semibold mb-1">Assigned To:</p>
+                    <div class="px-3 py-1 rounded-md text-sm font-medium"
+                         [ngClass]="{
+                        'bg-blue-100 text-blue-800 border border-blue-200': task.assignedToName,
+                        'bg-gray-100 text-gray-500 border border-gray-200 italic': !task.assignedToName
+                      }">
+                      {{ task.assignedToName || 'Not yet assigned' }}
+                    </div>
+                  </div>
+
+                  <div class="text-xs text-gray-500">
+                    <p>📅 Due: {{ task.dueDate | date }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex gap-2 mt-3">
+                <button class="bg-yellow-400 hover:bg-yellow-500 text-white text-xs px-2 py-1 rounded"
+                        *ngIf="userRole === 'Admin' || userRole === 'Manager'"
+                        (click)="editTask(task.taskId); $event.stopPropagation()">
+                  Edit
+                </button>
+
+                <button class="bg-red-500 hover:bg-red-600 text-white text-xs px-2 py-1 rounded"
+                        *ngIf="userRole === 'Admin' || userRole === 'Manager'"
+                        (click)="deleteTask(task.taskId); $event.stopPropagation()">
+                  Delete
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🧩 Task List View -->
+      <div class="mt-8">
+        <app-task-list [projectId]="projectId"
+                       [refreshKey]="refreshKey"
+                    
+                       (editTask)="editTask($event)"
+                       (deleteTask)="deleteTask($event)">
+        </app-task-list>
+      </div>
+
+    </div>
+
+
+  </div>
+  </div>

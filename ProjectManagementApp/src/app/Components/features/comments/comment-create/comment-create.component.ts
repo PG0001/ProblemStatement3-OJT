@@ -10,6 +10,7 @@ import { AuthService } from '../../../../Services/core/services/auth.service';
   styleUrls: ['./comment-create.component.css']
 })
 export class CommentCreateComponent {
+  @Input() projectId!: number;
   @Input() taskId!: number;          // ID of the task to comment on
   @Output() commentAdded = new EventEmitter<void>(); // notify parent to refresh comments
 

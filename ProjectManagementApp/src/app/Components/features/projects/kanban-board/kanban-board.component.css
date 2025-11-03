@@ -1,30 +1,65 @@
 /* kanban-board.component.css */
-.kanban-board {
-  margin: 20px auto;
-}
-
-.kanban-columns {
+.kanban-container {
   display: flex;
-  gap: 15px;
-  overflow-x: auto;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .kanban-column {
   flex: 1;
-  min-width: 200px;
-  background: #f7f7f7;
-  padding: 10px;
-  border-radius: 6px;
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 500px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.task-card {
+.kanban-list {
+  min-height: 400px;
   background: #fff;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem;
 }
 
-  .task-card button {
-    margin-top: 4px;
+.kanban-card {
+  background: #eef2ff;
+  margin-bottom: 0.6rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priority-badge {
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+  .priority-badge.high {
+    background: #ef4444;
   }
+
+  .priority-badge.medium {
+    background: #f59e0b;
+  }
+
+  .priority-badge.low {
+    background: #10b981;
+  }
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 0.5rem;
+}

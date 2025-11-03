@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold text-primary">👥 Employee Management</h2>
+    <button class="btn btn-success" (click)="toggleRegisterForm()">
+      {{ showRegisterForm ? '✖ Close Form' : '+ Register Employee' }}
+    </button>
+  </div>
+
+  <!-- Toggle Form -->
+  <div *ngIf="showRegisterForm" class="card shadow-sm p-3 mb-4 border-primary border-2">
+    <h5 class="text-primary mb-3">Register New Employee</h5>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Name</label>
+          <input type="text" formControlName="name" class="form-control" placeholder="Enter employee name" />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Email</label>
+          <input type="email" formControlName="email" class="form-control" placeholder="Enter employee email" />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Role</label>
+          <select formControlName="role" class="form-select">
+            <option value="">Select Role</option>
+            <option value="1">Admin</option>
+            <option value="2">Manager</option>
+            <option value="3">Employee</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="text-end mt-3">
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Employee Table -->
+  <div *ngIf="!isLoading && employees.length > 0" class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees; let i = index">
+          <td class="text-center">{{ i + 1 }}</td>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.email }}</td>
+          <td><span class="badge bg-info text-dark">{{ emp.role }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && employees.length === 0" class="text-center py-5 text-muted">
+    <p>No employees found. Click <strong>Register Employee</strong> to add one.</p>
+  </div>
+</div>

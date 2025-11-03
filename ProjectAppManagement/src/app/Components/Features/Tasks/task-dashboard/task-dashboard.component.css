@@ -1,0 +1,337 @@
+/* 🌐 Overall Page Layout */
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+  font-family: 'Inter', sans-serif;
+}
+
+/* 🧱 Main Container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* 🧭 Dashboard Container */
+.dashboard-container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+  .dashboard-container * {
+    transition: all 0.2s ease-in-out;
+  }
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+}
+
+/* 🪄 Project Header */
+.project-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #eef2ff, #e0f2fe);
+  border: 1px solid #dbeafe;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+@media (min-width: 768px) {
+  .project-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* 🧭 Left Section */
+.project-header-left {
+  flex: 1;
+}
+
+.project-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.accent-bar {
+  width: 6px;
+  height: 36px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #2563eb, #3b82f6);
+}
+
+.project-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  letter-spacing: 0.3px;
+}
+
+.project-description {
+  color: #475569;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* 🕒 Meta Info */
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+  .project-meta .label {
+    font-weight: 600;
+    color: #334155;
+    margin-right: 0.25rem;
+  }
+
+  .project-meta .value {
+    color: #1e293b;
+  }
+
+/* 🎯 Header Buttons */
+.project-header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  color: #fff;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #1e40af, #1d4ed8);
+    transform: translateY(-2px);
+  }
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+}
+
+  .btn-secondary:hover {
+    background: linear-gradient(135deg, #4338ca, #3730a3);
+    transform: translateY(-2px);
+  }
+
+/* 🌈 Kanban Board */
+.kanban-board {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+  .kanban-board::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .kanban-board::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+/* 🧩 Columns */
+.kanban-column {
+  flex: 1;
+  min-width: 320px;
+  padding: 1rem;
+  background: linear-gradient(145deg, #f9fafb, #f1f5f9);
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+
+  .kanban-column:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .kanban-column h3 {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #334155;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+/* 💡 Drop Area */
+.cdk-drop-list {
+  min-height: 350px;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.75rem;
+}
+
+.cdk-drop-list-dragging {
+  background: #f0f9ff;
+  box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+/* ✨ Task Card */
+.task-card {
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease-in-out;
+  cursor: grab;
+  backdrop-filter: blur(6px);
+}
+
+  .task-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  }
+
+/* 🏷️ Priority Colors */
+.task-low {
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  border-left: 4px solid #16a34a;
+}
+
+.task-medium {
+  background: linear-gradient(135deg, #fef9c3, #fde68a);
+  border-left: 4px solid #facc15;
+}
+
+.task-high {
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border-left: 4px solid #dc2626;
+}
+
+/* 🕓 Task Info */
+.task-title {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.task-desc {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-top: 0.25rem;
+  line-height: 1.3;
+}
+
+.task-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #475569;
+  margin-top: 0.75rem;
+}
+
+/* 📊 Progress Bar */
+.progress-container {
+  background: #e2e8f0;
+  border-radius: 9999px;
+  height: 1rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  border-radius: 9999px;
+  transition: width 0.6s ease;
+}
+
+.completion-text {
+  text-align: right;
+  margin-top: 0.5rem;
+  color: #475569;
+  font-size: 0.875rem;
+}
+
+/* 🧱 Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.25s ease-out;
+}
+
+  /* ✖ Close Button */
+  .modal-content button.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.25rem;
+    color: #6b7280;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+    .modal-content button.close:hover {
+      color: #ef4444;
+    }
+
+/* ✨ Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

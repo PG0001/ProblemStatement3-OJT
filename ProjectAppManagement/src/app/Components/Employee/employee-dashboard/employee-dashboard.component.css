@@ -1,0 +1,133 @@
+/* --- Layout --- */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1.5rem;
+}
+
+/* --- Header --- */
+h2 {
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-success {
+  background-color: #198754;
+  border: none;
+}
+
+  .btn-success:hover {
+    background-color: #157347;
+    transform: translateY(-1px);
+  }
+
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+}
+
+  .btn-primary:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-1px);
+  }
+
+/* --- Register Form Card --- */
+.card {
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e4e6eb;
+  transition: 0.3s ease;
+}
+
+  .card:hover {
+    transform: translateY(-2px);
+  }
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+input.form-control,
+select.form-select {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+/* --- Table --- */
+.table {
+  background-color: #ffffff;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+  .table thead {
+    background-color: #0d6efd;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+  }
+
+  .table th,
+  .table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.75rem;
+  }
+
+  .table tbody tr {
+    transition: background-color 0.2s ease;
+  }
+
+    .table tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+
+/* --- Spinner --- */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* --- Empty State --- */
+.text-muted {
+  font-style: italic;
+  color: #6c757d !important;
+}
+
+/* --- Smooth Toggle Animation --- */
+.card[ng-reflect-ng-if="true"] {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

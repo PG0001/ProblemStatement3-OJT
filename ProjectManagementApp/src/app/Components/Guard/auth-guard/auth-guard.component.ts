@@ -10,19 +10,22 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    const roles = route.data['roles'] as string[] | undefined;
+    const token = this.authService.getToken();
 
-    if (!this.authService.isLoggedIn()) {
+    if (!token) {
       this.router.navigate(['/auth/login']);
       return false;
     }
 
-    const userRole = localStorage.getItem('employeeRole');
-
-    if (roles && !roles.includes(userRole!)) {
-      alert('You do not have permission to access this page.');
-      this.router.navigate(['/projects']);
-      return false;
+    // Optional: Check roles
+    const allowedRoles = route.data['roles'] as Array<string>;
+    if (allowedRoles && allowedRoles.length > 0) {
+      // Example: Check user role logic (if you add it in token)
+      const userRole = sessionStorage.getItem('role');
+      if (!userRole || !allowedRoles.includes(userRole)) {
+        this.router.navigate(['/dashboard']);
+        return false;
+      }
     }
 
     return true;

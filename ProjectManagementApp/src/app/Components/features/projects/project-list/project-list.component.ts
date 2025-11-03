@@ -1,7 +1,6 @@
-// project-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ProjectService } from '../../../../Services/core/services/project.service';
+import { Project } from '../../../../Models/Project';
 
 @Component({
   selector: 'app-project-list',
@@ -9,54 +8,28 @@ import { ProjectService } from '../../../../Services/core/services/project.servi
   styleUrls: ['./project-list.component.css']
 })
 export class ProjectListComponent implements OnInit {
-  projects: any[] = [];
-  isLoading = true;
-  errorMessage = '';
-  search: string = '';
+  projects: Project[] = [];
+  searchTerm = '';
 
-  showDeleteDialog: boolean = false;
-  selectedProjectId!: number;
-
-  constructor(private projectService: ProjectService, private router: Router) { }
+  constructor(private projectService: ProjectService) { }
 
   ngOnInit(): void {
     this.loadProjects();
   }
 
   loadProjects() {
-    this.isLoading = true;
-    this.projectService.getProjects().subscribe({
-      next: res => {
-        this.projects = res;
-        this.isLoading = false;
-      },
-      error: err => {
-        this.errorMessage = err.error || 'Failed to load projects';
-        this.isLoading = false;
-      }
+    this.projectService.getProjects(1, 10, this.searchTerm).subscribe({
+      next: (res) => (this.projects = res),
+      error: (err) => console.error('Error fetching projects', err)
     });
   }
 
-  onSearch() {
-    this.loadProjects(); // Add backend search logic if needed
-  }
-
-  viewProject(projectId: number) {
-    this.router.navigate(['/projects', projectId]);
-  }
-
-  onDeleteClick(projectId: number) {
-    this.selectedProjectId = projectId;
-    this.showDeleteDialog = true;
-  }
-
-  deleteProject(projectId: number) {
-    this.projectService.deleteProject(projectId).subscribe({
-      next: () => {
-        this.showDeleteDialog = false;
-        this.loadProjects(); // reload after delete
-      },
-      error: err => console.error(err)
-    });
+  deleteProject(id: number) {
+    if (confirm('Are you sure you want to delete this project?')) {
+      this.projectService.deleteProject(id).subscribe({
+        next: () => this.loadProjects(),
+        error: (err) => console.error('Error deleting project', err)
+      });
+    }
   }
 }
