@@ -379,16 +379,5 @@ curl -H "Authorization: Bearer $TOKEN" "https://api.example.com/api/dashboard/pr
 
 ---
 
-## License
 
-MIT
 
----
-
-If you want, I can:
-
-* Generate a more compact `README.md` suitable for GitHub root
-* Produce a Postman collection / OpenAPI (Swagger) spec for the API
-* Create example seed data or SQL migration scripts
-
-Tell me which of the above you'd like next and I will generate it.
